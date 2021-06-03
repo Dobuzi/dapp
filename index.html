@@ -6,14 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deploy a Remix Contract</title>
-    <!-- <link rel="stylesheet" href="main.css" type="text/css"> -->
+    <link rel="stylesheet" href="main.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 
 <body>
     <div>
-        <h1>Deploy a Remix Contract</h1>
+        <h1>Ethereum Secret Messenger</h1>
+        <hr>
+
+        <label for="message">This site writes a secret message to the Ethereum blockchain!</label>
+        <input type="text" id="userInput">
+
+        <button id="setMessageButton">Set secret message</button>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         if (typeof web3 !== 'undefined') {
             web3 = new Web3(web3.currentProvider)
@@ -52,9 +59,13 @@
                 "type": "function"
             }
         ]
-        const contractAddress = '0x6e70632B407df93753BfA054e0e664019b0442Da'
+        const contractAddress = '0xA7E93e4e8504b7464AE33d698EB6fD316D823596'
         var myMessage = new web3.eth.Contract(ABI, contractAddress)
         console.log(myMessage)
+        $("#setMessageButton").click(() => {
+            myMessage.methods.setMessage($("#userInput").val())
+            console.log($("#userInput").val())
+        })
     </script>
 </body>
 
