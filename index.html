@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy a Remix Contract</title>
+    <!-- <link rel="stylesheet" href="main.css" type="text/css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>Deploy a Remix Contract</h1>
+    </div>
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider)
+        } else {
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"))
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0]
+        const ABI = [
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "x",
+                        "type": "string"
+                    }
+                ],
+                "name": "setMessage",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getMessage",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "string"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ]
+        const contractAddress = '0x6e70632B407df93753BfA054e0e664019b0442Da'
+        var myMessage = new web3.eth.Contract(ABI, contractAddress)
+        console.log(myMessage)
+    </script>
+</body>
+
+</html>
